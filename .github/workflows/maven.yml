@@ -1,43 +1,56 @@
-name : Maven
+name: Maven CI with CodeQL
 
+on:
+  pull_request:
+    branches: [ main ]
 
-on : 
-    pull_request:
-        branches:
-            - main
+permissions:
+  contents: read
+  security-events: write
 
 jobs:
-    build:
-        runs-on: ubuntu-latest
-        steps:
-            - name: set up code
-              uses: actions/checkout@v4
+  build:
+    runs-on: ubuntu-latest
 
-            - name: setup java
-              uses: actions/setup-java@v3
-              with:
-                distribution: temurin
-                java-version: 17
-                cache: maven
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-            - name: clean
-              run: mvn clean
+      - name: Set up Java 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: maven
 
-            - name: install dependencies
-              run: mvn install
+  
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: java
 
-            - name: test
-              run: mvn test
+      - name: Autobuild with CodeQL
+        uses: github/codeql-action/autobuild@v3
 
-            - name: build
-              run: mvn package
-              
-            - name: Upload build artifacts
-              uses: actions/upload-artifact@v4
-              with:
-                name: my-maven-package
-                path: target/*.jar
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
 
+      
+      - name: Clean Project
+        run: mvn clean
 
+      - name: Install Dependencies
+        run: mvn install -DskipTests=false
 
+      - name: Run Tests
+        run: mvn test
 
+      - name: Build Package
+        run: mvn package
+
+      
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: maven-artifact
+          path: target/*.jar
