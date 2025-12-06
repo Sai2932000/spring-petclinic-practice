@@ -1,4 +1,5 @@
-name: Maven CI with CodeQL
+name: Maven CI with test results
+
 
 on:
   pull_request:
