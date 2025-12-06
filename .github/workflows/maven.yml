@@ -3,6 +3,7 @@ name: Maven CI with CodeQL
 on:
   pull_request:
     branches: [ main ]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -44,7 +45,14 @@ jobs:
 
       - name: Run Tests
         run: mvn test
-
+      
+      - name: storing artifact
+        uses: EnricoMi/publish-unit-test-result-action@v2
+ 
+        with:
+          files: |
+           **/target/surefire-reports/*.xml
+     
       - name: Build Package
         run: mvn package
 
