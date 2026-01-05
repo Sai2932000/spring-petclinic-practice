@@ -1,5 +1,26 @@
 # Spring PetClinic Sample Application [![Build Status](https://github.com/spring-projects/spring-petclinic/actions/workflows/maven-build.yml/badge.svg)](https://github.com/spring-projects/spring-petclinic/actions/workflows/maven-build.yml)[![Build Status](https://github.com/spring-projects/spring-petclinic/actions/workflows/gradle-build.yml/badge.svg)](https://github.com/spring-projects/spring-petclinic/actions/workflows/gradle-build.yml)
 
+## 🚀 My Work – Dockerized & Deployed on GCP
+
+This repository is forked from the official **Spring PetClinic** project.
+
+### What I implemented
+- Dockerized the application using **multi-stage Docker builds**
+- Ran containers using a **non-root user** for better security
+- Deployed the application on a **Google Cloud Platform (GCP) VM**
+- Configured **firewall rules** to expose the application
+- Implemented **CI using GitHub Actions**:
+  - Maven build & test
+  - Artifact generation on every change
+
+### How to run (Docker)
+```bash
+docker build -t petclinic .
+docker run -p 8080:8080 petclinic
+
+
+
+
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/spring-projects/spring-petclinic) [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=7517918)
 
 ## Understanding the Spring Petclinic application with a few diagrams
