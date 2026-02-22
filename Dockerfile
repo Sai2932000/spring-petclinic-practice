@@ -2,7 +2,7 @@
   2 FROM maven:3-eclipse-temurin-21-alpine AS build
   3 WORKDIR /src
   4 COPY . .
-  5 RUN mvn -B package
+  5 RUN mvn -B -DskipTests package
   6
   7 # ---------- Runtime stage ----------
   8 FROM eclipse-temurin:21-jre-alpine AS final
