@@ -6,10 +6,16 @@ metadata:
   labels:
     app: petclinic
 spec:
-  replicas: 3
+  replicas: 4
+  revisionHistoryLimit: 5
   selector:
     matchLabels:
       app: petclinic
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
   template:
     metadata:
       labels:
