@@ -32,6 +32,7 @@ Run locally:
 
 docker pull sai8032/sai_petclinic:1.0
 docker run -p 8080:8080 sai8032/sai_petclinic:1.0
+
 ⚙️ CI Pipeline – GitHub Actions
 
 A CI pipeline was implemented using GitHub Actions to automate the application build.
@@ -52,6 +53,7 @@ Pipeline trigger:
 
 Pull Request → main branch
 Manual trigger (workflow_dispatch)
+
 ☸️ Kubernetes Deployment
 
 The application is deployed into a Kubernetes cluster using Kubernetes manifests.
@@ -81,8 +83,11 @@ kubectl apply -f k8s/
 Verify deployment:
 
 kubectl get pods
+
 kubectl get svc
+
 🏗️ Architecture
+
 Developer
    ↓
 GitHub Repository
@@ -98,16 +103,27 @@ Kubernetes Deployment
 Spring Boot Pods
    ↓
 Kubernetes Service
+
 🛠️ Technologies Used
+
 Technology	Purpose
+
 Java	Application language
+
 Spring Boot	Backend framework
+
 Maven	Build tool
+
 Docker	Containerization
+
 GitHub Actions	CI pipeline
+
 Kubernetes	Container orchestration
+
 Docker Hub	Image registry
+
 📂 Project Structure
+
 spring-petclinic-practice
 │
 ├── Dockerfile
@@ -121,17 +137,25 @@ spring-petclinic-practice
 │
 └── src
 🚀 How to Run the Project
+
 Clone Repository
+
 git clone https://github.com/Sai2932000/spring-petclinic-practice
+
 cd spring-petclinic-practice
+
 Build Application
+
 ./mvnw package
+
 Run Locally
+
 java -jar target/*.jar
 
 Application runs on:
 
 http://localhost:8080
+
 📚 What I Learned
 
 Through this project I gained hands-on experience with:
