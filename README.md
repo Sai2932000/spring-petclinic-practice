@@ -7,6 +7,7 @@ The Spring PetClinic is a well-known sample application used to demonstrate how 
 In this project, the focus is not on application development but on building a DevOps workflow around the application.
 
 🏗 Architecture
+
 Code
   │
   ▼
@@ -41,6 +42,7 @@ Application exposed on port 8080
 Docker image published to DockerHub:
 
 docker.io/sai8032/sai_petclinic:1.0
+
 ▶️ Build and Run Locally
 
 Build the Docker image:
@@ -68,6 +70,7 @@ Code Push
 🧪 Unit Tests
    ↓
 🐳 Docker Image Build
+
 Workflow features
 
 Automated build and test execution
@@ -97,6 +100,7 @@ Port 8080 inside the cluster
 and is exposed externally through:
 
 NodePort Service
+
 📦 Kubernetes Resources Used
 
 This project includes the following Kubernetes resources:
@@ -112,6 +116,7 @@ Deployment strategy configuration:
 maxSurge: 1
 maxUnavailable: 1
 revisionHistoryLimit: 5
+
 🧠 Key DevOps Concepts Practiced
 
 Through this project I practiced:
@@ -147,6 +152,7 @@ Google Cloud VM
 GitHub Repository:
 
 https://github.com/Sai2932000/spring-petclinic-practice
+
 📈 Future Improvements
 
 Planned enhancements for this project:
