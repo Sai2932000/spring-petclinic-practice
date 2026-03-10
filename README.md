@@ -1,173 +1,161 @@
-🚀 Spring PetClinic – DevOps Practice Project
+🐳 Spring PetClinic – Dockerized CI/CD Deployment on Kubernetes
 
-This repository contains a DevOps implementation of the Spring PetClinic application, focusing on containerization, CI automation, and Kubernetes deployment.
+This repository contains the Spring PetClinic application, containerized and deployed using modern DevOps practices including Docker, CI with GitHub Actions, and Kubernetes deployment.
 
-The Spring PetClinic is a well-known sample application used to demonstrate how the Spring ecosystem (Spring Boot, Spring MVC, Spring Data) can be used to build real-world web applications.
+The purpose of this project is to demonstrate how a traditional Spring Boot application can be transformed into a cloud-ready application using containerization and automated CI/CD workflows.
 
-In this project, the focus is not on application development but on building a DevOps workflow around the application.
+Spring PetClinic is a widely used reference application that demonstrates how the Spring ecosystem can be used to build database-driven web applications.
 
-🏗 Architecture
+🧑‍💻 My Contributions (DevOps)
 
-Code
-  │
-  ▼
-🐳 Docker Containerization
-  │
-  ▼
-⚙️ GitHub Actions CI Pipeline
-  │
-  ▼
-📦 Docker Image (DockerHub)
-  │
-  ▼
-☸️ Kubernetes Deployment
-  │
-  ▼
-🌐 Service Exposure
+In this project, I focused on implementing the DevOps workflow required to build, package, and deploy the application.
 
-🐳 Docker Implementation
+🐳 Docker – Containerization
 
-The application was containerized using Docker best practices.
+I containerized the Spring Boot application so that it can run consistently across environments.
 
-Features
+Tasks performed:
 
-Multi-stage Docker build
+Created a Dockerfile
 
-Reduced image size using optimized base images
+Built the Docker image using multi-stage builds
 
-Container configured to run as a non-root user
+Tested the container locally
 
-Application exposed on port 8080
+Pushed the image to Docker Hub
 
-Docker image published to DockerHub:
+Docker Image:
 
-docker.io/sai8032/sai_petclinic:1.0
+sai8032/sai_petclinic:1.0
 
-▶️ Build and Run Locally
+Run locally:
 
-Build the Docker image:
+docker pull sai8032/sai_petclinic:1.0
+docker run -p 8080:8080 sai8032/sai_petclinic:1.0
+⚙️ CI Pipeline – GitHub Actions
 
-docker build -t sai_petclinic .
+A CI pipeline was implemented using GitHub Actions to automate the application build.
 
-Run the container:
+Pipeline workflow
 
-docker run -p 8080:8080 sai_petclinic
+Code pushed to GitHub
 
-Access the application:
+GitHub Actions triggers pipeline
 
-http://localhost:8080
+Maven builds the application
 
-⚙️ GitHub Actions – CI Pipeline
+Docker image is built
 
-A CI pipeline was implemented using GitHub Actions.
+Image is pushed to Docker Hub
 
-Pipeline stages:
+Pipeline trigger:
 
-Code Push
-   ↓
-🔨 Maven Build
-   ↓
-🧪 Unit Tests
-   ↓
-🐳 Docker Image Build
-
-Workflow features
-
-Automated build and test execution
-
-Docker image build during pipeline
-
-Continuous validation of application integrity
-
+Pull Request → main branch
+Manual trigger (workflow_dispatch)
 ☸️ Kubernetes Deployment
 
-The containerized application was deployed into a Kubernetes cluster.
+The application is deployed into a Kubernetes cluster using Kubernetes manifests.
 
-Deployment configuration
+Resources created:
 
-Deployment with 4 replicas
-
-RollingUpdate strategy
-
-Revision history for rollback support
-
-NodePort service for external access
-
-The application runs on:
-
-Port 8080 inside the cluster
-
-and is exposed externally through:
-
-NodePort Service
-
-📦 Kubernetes Resources Used
-
-This project includes the following Kubernetes resources:
+Namespace
 
 Deployment
 
-ReplicaSet (managed by Deployment)
+Service
 
-Service (NodePort)
+Kubernetes Features Used
 
-Deployment strategy configuration:
+Replica based scaling
 
-maxSurge: 1
-maxUnavailable: 1
-revisionHistoryLimit: 5
+Container orchestration
 
-🧠 Key DevOps Concepts Practiced
+Service networking
 
-Through this project I practiced:
+Pod lifecycle management
 
-Containerizing applications with Docker
+Deploy the application:
 
-Implementing CI pipelines using GitHub Actions
+kubectl apply -f k8s/
 
-Deploying workloads on Kubernetes
+Verify deployment:
 
-Understanding rolling update strategies
+kubectl get pods
+kubectl get svc
+🏗️ Architecture
+Developer
+   ↓
+GitHub Repository
+   ↓
+GitHub Actions CI Pipeline
+   ↓
+Docker Image Build
+   ↓
+Docker Hub Registry
+   ↓
+Kubernetes Deployment
+   ↓
+Spring Boot Pods
+   ↓
+Kubernetes Service
+🛠️ Technologies Used
+Technology	Purpose
+Java	Application language
+Spring Boot	Backend framework
+Maven	Build tool
+Docker	Containerization
+GitHub Actions	CI pipeline
+Kubernetes	Container orchestration
+Docker Hub	Image registry
+📂 Project Structure
+spring-petclinic-practice
+│
+├── Dockerfile
+├── .github/workflows
+│   └── ci.yml
+│
+├── k8s
+│   ├── namespace.yaml
+│   ├── deployment.yaml
+│   └── service.yaml
+│
+└── src
+🚀 How to Run the Project
+Clone Repository
+git clone https://github.com/Sai2932000/spring-petclinic-practice
+cd spring-petclinic-practice
+Build Application
+./mvnw package
+Run Locally
+java -jar target/*.jar
 
-Managing container resources
+Application runs on:
 
-Exposing applications using Kubernetes services
+http://localhost:8080
+📚 What I Learned
 
-🛠 Tech Stack
+Through this project I gained hands-on experience with:
 
-Java (Spring Boot)
+Containerizing applications using Docker
 
-Docker
+Automating builds using GitHub Actions
 
-GitHub Actions
+Building a CI pipeline
 
-Kubernetes
+Deploying applications in Kubernetes
 
-Linux
+Understanding container orchestration
 
-Google Cloud VM
+🔮 Future Improvements
 
-🔗 Repository
+Possible improvements for the project:
 
-GitHub Repository:
+Implement CD pipeline
 
-https://github.com/Sai2932000/spring-petclinic-practice
+Add Helm charts
 
-📈 Future Improvements
+Configure Kubernetes Ingress
 
-Planned enhancements for this project:
+Add Prometheus & Grafana monitoring
 
-Kubernetes Horizontal Pod Autoscaler (HPA)
-
-Ingress controller for external routing
-
-Helm charts for templated deployments
-
-GitOps workflow (ArgoCD / Flux)
-
-👨‍💻 Author
-
-Thumma Sai Kumar
-
-GitHub
-https://github.com/Sai2932000
+Implement Rolling Updates
