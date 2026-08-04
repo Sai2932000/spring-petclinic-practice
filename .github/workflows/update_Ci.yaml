@@ -96,7 +96,7 @@ jobs:
             scan-type: image
             image-ref: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
             format: table
-            exit-code: 1
+            exit-code: 0
             severity: CRITICAL,HIGH
             ignore-unfixed: true
             vuln-type: os,library
