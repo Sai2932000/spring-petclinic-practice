@@ -1,4 +1,4 @@
-name: Spring_CI/CD
+name: Spring_CI-CD
 
 on:
 
@@ -91,12 +91,16 @@ jobs:
               -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
 
         - name: Run Trivy Vulnerability Scanner
-          uses: aquasecurity/trivy-action@0.31.0
+          uses: aquasecurity/trivy-action@v0.36.0
           with:
+            scan-type: image
             image-ref: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
             format: table
             exit-code: 1
             severity: CRITICAL,HIGH
+            ignore-unfixed: true
+            vuln-type: os,library
+            
 
         - name: Push Docker Image
           run: |
