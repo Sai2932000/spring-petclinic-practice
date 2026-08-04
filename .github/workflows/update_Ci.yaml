@@ -1,4 +1,4 @@
-name: Spring_CI
+name: Spring_CI/CD
 
 on:
 
@@ -15,10 +15,14 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 
 jobs:
   build:
     runs-on: ubuntu-latest
+  
     steps :
         - uses: actions/checkout@v4
         - name: Set up JDK 17
@@ -30,8 +34,8 @@ jobs:
         
         - name: Build
           run: mvn -B clean verify
-
-        - name: upload jar file
+         
+        - name: Upload JAR Artifact
           uses: actions/upload-artifact@v4
           with:
             name: jar-file
@@ -41,7 +45,7 @@ jobs:
           if: always()
           uses: actions/upload-artifact@v4
           with:
-            name: Junit test-reults
+            name: Junit test-reult
             path: target/surefire-reports
 
         - name:  Upload JaCoCo Report
@@ -50,7 +54,53 @@ jobs:
           with:
             name: coverage-report
             path: target/site/jacoco
-        
-        
+
+  docker-publish:
+    name: Build and Push Docker file
+    needs: build
+    runs-on: ubuntu-latest
+    env:
+      ECR_REGISTRY: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
+      ECR_REPOSITORY: spring-petclinic
+      IMAGE_TAG: ${{ github.sha }}
+    
+    steps:
+         
+        - uses: actions/checkout@v4
+
+        - name: Download JAR Artifact
+          uses: actions/download-artifact@v4
+          with:
+            name: jar-file
+            path: target
+       
+        - name: Configure AWS Credentials
+          uses: aws-actions/configure-aws-credentials@v6
+          with:
+            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            aws-region: ${{ secrets.AWS_REGION }}
+
+        - name: Login to Amazon ECR
+          uses: aws-actions/amazon-ecr-login@v2
+          
+            
+        - name: Build Docker Image
+          run: |
+            docker build \
+              -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+
+        - name: Run Trivy Vulnerability Scanner
+          uses: aquasecurity/trivy-action@0.31.0
+          with:
+            image-ref: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
+            format: table
+            exit-code: 1
+            severity: CRITICAL,HIGH
+
+        - name: Push Docker Image
+          run: |
+           docker push \
+             $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
  
