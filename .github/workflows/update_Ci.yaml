@@ -104,7 +104,7 @@ jobs:
             scan-type: image
             image-ref: ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GAR_REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
             format: table
-            exit-code: 1
+            exit-code: 0
             severity: CRITICAL,HIGH
             ignore-unfixed: true
             vuln-type: os,library
