@@ -297,7 +297,7 @@ Through this project, I gained practical experience with:
 
 # 👨‍💻 Author
 
-**Sai Thumma**
+**Sai Kumar Thumma**
 
 DevOps Engineer | Docker | Kubernetes | GitHub Actions | Terraform | Google Cloud Platform | Linux
 
