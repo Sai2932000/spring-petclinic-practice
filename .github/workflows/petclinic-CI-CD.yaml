@@ -142,19 +142,21 @@ jobs:
       with:
         project_id: ${{ secrets.GCP_PROJECT_ID }}
 
-    - name: Install GKE Auth Plugin
-      run: |
-        gcloud components install gke-gcloud-auth-plugin --quiet
-
     - name: Get GKE Credentials
       uses: google-github-actions/get-gke-credentials@v2
       with:
         cluster_name: ${{ env.GKE_CLUSTER }}
         location: ${{ env.GKE_ZONE }}
-    
+    - name: Create Namespace
+      run: |
+        kubectl apply -f k8s/ns.yml
+        sleep 10 
+
     - name: Deploy Kubernetes Manifests
       run: |
-        kubectl apply -f k8s/
+        kubectl apply -f k8s/deployment.yml
+        kubectl apply -f k8s/service.yml
+
       
     - name: Verify Resources
       run: |
