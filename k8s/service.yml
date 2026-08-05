@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: petclinic-service
-  namespace: dev_ns
+  namespace: dev-ns
   labels:
     app: spring-petclinic
 
