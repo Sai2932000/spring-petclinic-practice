@@ -3,5 +3,5 @@ kind: Namespace
 metadata:
   name: dev_ns
   labels:
-    app: spring_pet_clinic
+    app: spring-petclinic
     env: dev
