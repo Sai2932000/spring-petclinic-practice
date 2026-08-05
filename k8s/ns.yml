@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: dev_ns
+  name: dev-ns
   labels:
     app: spring-petclinic
     env: dev
