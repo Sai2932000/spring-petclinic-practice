@@ -154,23 +154,36 @@ jobs:
     
     - name: Deploy Kubernetes Manifests
       run: |
-        kubectl apply -f k8s/
+        kubectl apply -f k8s/ns.yml
+        kubectl apply -f k8s/deployment.yml
+        kubectl apply -f k8s/service.yml
     
     - name: Update Deployment Image
       run: |
         kubectl set image deployment/pet-clinic \
           pet-clinic=${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GAR_REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }} \
-          -n dev_ns
+          -n dev-ns
       
     - name: Wait for Rollout
       run: |
-        kubectl rollout status deployment/pet-clinic -n dev_ns --timeout=5m
+        kubectl rollout status deployment/pet-clinic -n dev-ns --timeout=5m
     
     - name: Verify Deployment
       run: |
-        kubectl get pods -n dev_ns
-        kubectl get svc -n dev_ns
+        kubectl get pods -n dev-ns
+        kubectl get svc -n dev-ns
+
+    - name: Wait for Load Balancer IP
+      run: |
+        kubectl wait \
+           --for=jsonpath='{.status.loadBalancer.ingress[0].ip}' \
+           service/petclinic-service \
+           -n dev-ns \
+           --timeout=300s
 
     - name: Verify Application Health
       run: |
-       curl -f http://<LOAD_BALANCER_IP>:8080/actuator/health
+         LB_IP=$(kubectl get svc petclinic-service -n dev-ns \
+         -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+
+         curl -f http://$LB_IP/
