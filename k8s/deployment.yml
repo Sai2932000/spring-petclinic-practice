@@ -7,7 +7,7 @@ metadata:
     app: spring-petclinic
 
 spec:
-  replicas: 4
+  replicas: 2
   minReadySeconds: 2
   revisionHistoryLimit: 10
 
@@ -41,11 +41,11 @@ spec:
 
         resources:
           requests:
-            cpu: "100m"
-            memory: "256Mi"
+            cpu: "50m"
+            memory: "128Mi"
           limits:
-            cpu: "300m"
-            memory: "512Mi"
+            cpu: "200m"
+            memory: "256Mi"
 
         readinessProbe:
           httpGet:
